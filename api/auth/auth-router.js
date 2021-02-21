@@ -19,10 +19,10 @@ if(validUser(credentials)) {
   const token = generateToken(user)
   res.status(201).json({data: user, token})
 }else {
-
+res.status(400).json({message: "username and password required"})
 }
 }catch(error) {
-res.status(500).json({errorMessage: "username and password required"})
+res.status(500).json({errorMessage: "username taken"})
 }
   res.end('implement register, please!');
   
@@ -54,6 +54,23 @@ router.post('/login', async (req, res) => {
       the response body should include a string exactly as follows: "invalid credentials".
   */
 });
+
+// generate token helper 
+
+function generateToken(user) {
+
+  const payload = {
+    subject: user.id,
+    username: user.username,
+
+  }
+
+  const options ={
+expiresIn: "2d"
+}
+const token = jwt.sign(payload, secrets.jwtSecret, options)
+
+}
 
 module.exports = router;
 /*
