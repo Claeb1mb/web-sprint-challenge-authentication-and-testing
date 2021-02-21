@@ -10,23 +10,24 @@ module.exports = (req, res, next) => {
     if(token) {
       jwt.verify(token, secret, (error, decodedToken ) => {
         if (error) {
-          next({ apiCode: 401, message: "token required"})
+          next( res.status(401).json({message: "token required"}) )
         } else {
           req.decodedToken = decodedToken;
           next()
         }
       })
     } else{
-      next({ apiCode: 401, message: "token required"})
+      next( res.status(401).json({message: "token required"}))
     }
 
   } catch(error) {
-    next({ apiCode: 500, errorMessage: "token invalid", ...error })
+    next(res.status(500).json({message: "token invalid"}))
   }
  
 
 };
 
+// *** may have to take res status out of next() call * 
 
  /*
     IMPLEMENT
