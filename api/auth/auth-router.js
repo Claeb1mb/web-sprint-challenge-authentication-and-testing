@@ -69,7 +69,7 @@ function generateToken(user) {
   }
 
   const options ={
-expiresIn: "2d"
+expiresIn: "1d"
 }
 const token = jwt.sign(payload, secrets.jwtSecret, options)
 
@@ -103,6 +103,8 @@ module.exports = router;
   */
 
   /*
+
+
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
 
